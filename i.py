@@ -801,7 +801,7 @@ class OptimalMultiThreadPDFQASystem:
                     context_text = "\n\n".join(context_parts)
                     
                     # Enhanced prompt
-                    prompt = f"""You are an expert document analyst. Provide accurate, comprehensive answers based on the provided context.
+                    prompt = f"""You are an expert document analyst. Provide clear, direct, concise, and complete answers to each question based strictly on the provided context. Do not number the answers or use bullet points. Each answer must be a single, self-contained paragraph without line breaks or split lines. Do not use prefixes such as "ANSWER:", or reference the source, process, or context. Include precise facts, figures, dates, and terms wherever possible. If exact details are missing, provide the best, closest possible answer without assumptions or saying information is unavailable. Structure answers logically and intelligently to fully address the question.
 
 CONTEXT:
 {context_text}
@@ -809,13 +809,20 @@ CONTEXT:
 QUESTION: {question}
 
 INSTRUCTIONS:
-1. Analyze the question carefully
-2. Use ALL provided context for your answer
-3. Be precise with numbers, dates, and specific terms
-4. If information is not available, state this clearly
-5. Structure your response clearly and logically
+1. Analyze the question carefully and use all provided context.
+2. Provide one complete paragraph per answer, no line breaks or new lines inside an answer.
+3. Avoid single-word or overly brief replies; be thorough but concise.
+4. Do not number,-,\,\n or bullet answers.
+5. Do not prefix answers with any words like "Answer" or similar.
+6. Do not mention or cite the context or source.
+7. Use exact numbers, dates, and technical terms where possible.
+8. If exact info is not in context, give the closest accurate, non-assumptive reply.
 
-ANSWER:"""
+ouput structure :
+        "answer",
+        "answer",
+        "answer ",
+"""
                     
                     # Use different API key for each thread
                     api_key_index = group_id % len(self.groq_clients)
